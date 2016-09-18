@@ -18,7 +18,7 @@ function usage() {
     /bin/echo -e \\tThis script will permanently add a cape to the BBB initialization 	
     /bin/echo -e	
     /bin/echo -e Parameters 	
-    /bin/echo -e \\tcape name\\trequired parameter, the name of the cape to add to the init			
+    /bin/echo -e \\tcape name\\t\\trequired parameter, the name of the cape to add to the init			
     /bin/echo -e
     /bin/echo -e \\t-h\|-help\|--help\\t\\toptional parameter, display this usage message and "exit"
     /bin/echo -e
@@ -34,7 +34,7 @@ do
 	    NEW_CAPE="${key#*=}"
 	    shift # past argument=value
 	    ;;
-	    -c=*|--cape=*)
+	    -c|--cape)
 	    NEW_CAPE="$2"
 	    shift # past argument
 	    shift # past value
@@ -59,6 +59,7 @@ if [ "${CAPE/${NEW_CAPE}}" == "${CAPE}" ]; then
     else 
         CAPE=${NEW_CAPE} 
     fi
-    sudo echo CAPE=${CAPE} | sudo tee -a /etc/default/capemgr 
+    sed '/^CAPE=.*$/d' /etc/default/capemgr
+    sudo echo CAPE=${CAPE} | sudo tee -a /etc/default/capemgr > /dev/null
 fi
-echo default capes: ${cat /etc/default/capemgr}
+/bin/echo -e current default capes: $(cat /etc/default/capemgr| grep -v "#")
