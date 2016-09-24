@@ -1,0 +1,15 @@
+[Unit]
+Description=Network interfaces
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-wlan0.device
+After=sys-subsystem-net-devices-wlan0.device
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "/etc/init.d/wlan0.sh start"
+ExecStop=/bin/sh -c "/etc/init.d/wlan0.sh stop"
+
+[Install]
+WantedBy=multi-user.target
