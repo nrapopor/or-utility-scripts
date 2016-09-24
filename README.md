@@ -10,6 +10,7 @@
 | decompileDTB.sh           | The script used to de-compile the dtb that will be used at boot to enable the PRUs
 | decompileDTBLEDScape.sh   | The script used to de-compile the dtbo (overlay) that will be used at boot to enable LEDScape (not used just here for completness)
 | deployCAPE.sh             | The script used to add the compiled overlay to the capemgr initialization routine to enable this overlay at boot
+| startRGBtest.sh             | The script used to run the x-display rgb-test command
 | setupWiFi.sh             | The script used to configure the __connman__ service with a secure WiFi using wpa2 passphrase
 
 ## Deployment instructions 
