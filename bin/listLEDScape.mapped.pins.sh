@@ -1,0 +1,2 @@
+#!/bin/bash
+runTest.sh -qL23,L20,L14,L1,L21,L5,L3,L7,L19,L13,L18,L12,L4,L10,L16,L9,L8,L0,L22,L2
