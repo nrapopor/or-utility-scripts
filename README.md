@@ -12,6 +12,8 @@
 | deployCAPE.sh             | The script used to add the compiled overlay to the capemgr initialization routine to enable this overlay at boot
 | startRGBtest.sh           | The script used to run the x-display rgb-test command
 | setupWiFi.sh              | The script used to configure the __connman__ service with a secure WiFi using wpa2 passphrase
+| oracle-jdk-8.sh           | Install the latest version of JAVA JDK from Oracle
+|listLEDScape.mapped.pins.sh   | list the LEDScape mappings currentlyused by x2-display
 
 ## Deployment instructions 
 
