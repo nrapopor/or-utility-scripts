@@ -178,49 +178,51 @@ source for the links does exist yet ...
  ````
  
 2. Read the README.md for the project
+
  a. Alter the instructions as follows 
-   Run this __apt-get__ installation command instead (we already installed build-essential and git):
+   Run this __apt-get__ installation command instead (we already installed `build-essential` and `git`):
  ````sh
  sudo apt-get install linux-headers-$(uname -r) dkms
  ````
  b. Follow the rest of the instructions
+ 
  c. Disable power management for wifi
-  ````sh
-  echo ACTION==\"add\", SUBSYSTEM==\"net\", KERNEL==\"wlan\*\" RUN+=\"/usr/sbin/iw dev %k set power_save off\"| tee -i /etc/udev/rules.d/wifi_powersave_off.conf
-  ````
+ ````sh
+ echo ACTION==\"add\", SUBSYSTEM==\"net\", KERNEL==\"wlan\*\" RUN+=\"/usr/sbin/iw dev %k set power_save off\"| tee -i /etc/udev/rules.d/wifi_powersave_off.conf
+ ````
  d. Configure connman for your wireless network (assuming secure network)
-  ````sh
-  sudo connmanctl
-  connmanctl> Enable wifi
-  connmanctl> scan wifi
-  connmanctl> services
-  <list of services>
-  connmanctl> agent on
-  connmanctl> connect wifi_<adapter_MAC>_managed_psk  (or connect wifi_<adapter_MAC>_hidden_managed_psk)
-  Agent RequestInput wifi_<adapter_MAC>_hidden_managed_psk
+ ````sh
+ sudo connmanctl
+ connmanctl> Enable wifi
+ connmanctl> scan wifi
+ connmanctl> services
+ <list of services>
+ connmanctl> agent on
+ connmanctl> connect wifi_<adapter_MAC>_managed_psk  (or connect wifi_<adapter_MAC>_hidden_managed_psk)
+ Agent RequestInput wifi_<adapter_MAC>_hidden_managed_psk
     Name = [ Type=string, Requirement=mandatory, Alternates=[ SSID ] ]
     SSID = [ Type=ssid, Requirement=alternate ]
     Passphrase = [ Type=psk, Requirement=mandatory ]
-  Hidden SSID name? enter the ssid of the hidden network
-  Passphrase? enter the passphrase of the hiddent network
-  Connected wifi_<adapter_MAC>_hidden_managed_psk
-  connmanctl> services
-  *AO Wired                ethernet_<adapter_MAC>_cable
-  *AR <your ssid>          wifi_<adapter_MAC>_<hotspot1_MAC>_managed_psk
-  ...
-  connmanctl> exit
+ Hidden SSID name? enter the ssid of the hidden network
+ Passphrase? enter the passphrase of the hiddent network
+ Connected wifi_<adapter_MAC>_hidden_managed_psk
+ connmanctl> services
+ *AO Wired                ethernet_<adapter_MAC>_cable
+ *AR <your ssid>          wifi_<adapter_MAC>_<hotspot1_MAC>_managed_psk
+ ...
+ connmanctl> exit
 
-  cd /var/lib/connman
-  #set your own values for the ipv4/nameservers settings:
-  setupWiFi.sh -s wifi_<adapter_MAC>_<hotspot1_MAC>_managed_psk -p <your passphraze> -n <your ssid> \
-  --ipv4 192.168.1.136/255.255.255.0/192.168.1.1 --nameservers 8.8.8.8,8.8.4.4
-  ````
+ cd /var/lib/connman
+ #set your own values for the ipv4/nameservers settings:
+ setupWiFi.sh -s wifi_<adapter_MAC>_<hotspot1_MAC>_managed_psk -p <your passphraze> -n <your ssid> \
+ --ipv4 192.168.1.136/255.255.255.0/192.168.1.1 --nameservers 8.8.8.8,8.8.4.4
+ ````
 
-  ````sh
-  connmanctl enable wifi
-  connmanctl scan wifi
-  connmanctl connect $(onnmanctl services | grep -E "\*A[^O].*wifi_" | tr -s ' ' | cut -d ' ' -f 3)
-  ````
+ ````sh
+ connmanctl enable wifi
+ connmanctl scan wifi
+ connmanctl connect $(onnmanctl services | grep -E "\*A[^O].*wifi_" | tr -s ' ' | cut -d ' ' -f 3)
+ ````
 
 
 ## Author and Legal information
