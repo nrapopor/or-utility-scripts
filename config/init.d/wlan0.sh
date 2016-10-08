@@ -5,8 +5,8 @@
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start wifi wlan0 at boot time because for some reason it does not autostart
-# Description:       just run wireless.
+# Short-Description: Start wifi on wlan0 
+# Description:       Just init wireless. Start wifi wlan0 at boot time because for some reason it does not autostart
 ### END INIT INFO
 
 is_running() {

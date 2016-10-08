@@ -120,21 +120,26 @@ required_parameter name "${SSID_NAME}"
 
 if [ -z "${IP_CONFIG}" ]; then
     IPV4=EOF
-    EOF=
 else
     IPV4=IPv4=${IP_CONFIG}
-    EOF=EOF
+fi
+SSID="$(sudo cat /var/lib/connman/${SERVICE_PSK_NAME}/settings | grep SSID)"
+
+if [ -z "${SSID}" ]; then
+    SSID="SSID=$(echo ${SERVICE_PSK_NAME} | cut -d '_' -f 3)"
 fi
 
-cat << EOF | sudo tee -a /var/lib/connman/wifi.config 
+
+sudo cat << EOF | sudo tee -a /var/lib/connman/wifi.config 
 [service_${SERVICE_PSK_NAME}]
 Type=wifi
 Security=psk
-Name=nickhome
+Name=${SSID_NAME}
+${SSID}
 Passphrase=${PASSPHRASE}
 Nameservers=${DNS_NAMES}
 AutoConnect=true
 Favorite=true
 ${IPV4}
-${EOF}
+EOF
 
